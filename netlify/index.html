@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220"><title>LifeAnchor — Follow through on what matters</title>
+<style>
+:root{color-scheme:dark;font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial;color:#e9eef9;background:#0b1120}
+*{box-sizing:border-box}body{margin:0}.layout{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+aside{padding:28px 18px;border-right:1px solid #263247;background:#0c1627;display:flex;flex-direction:column;gap:24px}
+.brand{display:flex;align-items:center;gap:11px;font-size:23px;font-weight:800;letter-spacing:-.6px}
+.logo{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:#5a8ff7;color:white}
+nav{display:grid;gap:7px}.nav{padding:12px 14px;border-radius:10px;color:#b3c4dd;text-decoration:none;cursor:pointer}
+.nav.active,.nav:hover{background:#1c304b;color:white}
+.sidefoot{margin-top:auto;color:#889cb8;font-size:12px;padding:8px 14px;line-height:1.8}
+main{padding:32px clamp(20px,4vw,62px);max-width:1300px;width:100%}
+.top{display:flex;align-items:start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.eyebrow{color:#84adff;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800}
+h1{font-size:32px;line-height:1.15;letter-spacing:-1.2px;margin:9px 0 8px}h2{font-size:19px;margin:0 0 18px}
+.sub{color:#a5b5cd;max-width:650px;margin:0}
+.notice{display:inline-flex;align-items:center;gap:6px;border:1px solid #715327;background:#352715;color:#f6ca7b;border-radius:100px;padding:7px 12px;font-size:12px;font-weight:700}
+.btn{border:1px solid #344663;border-radius:11px;background:#1b2b42;color:#f1f5ff;padding:11px 15px;cursor:pointer;font-weight:650;font:inherit;transition:.15s}
+.btn:hover{filter:brightness(1.2)}.primary{background:#628ff1;color:#071321;border-color:#628ff1;font-weight:800}
+.btn:disabled{opacity:.42;cursor:not-allowed}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:29px 0}
+.card,.panel{background:#111e31;border:1px solid #273850;border-radius:18px;box-shadow:0 10px 35px #02091620}
+.card{padding:21px}.metric{font-size:36px;font-weight:800;margin-top:9px}.muted{color:#9eafc6}
+.panels{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:20px}
+.panel{padding:23px;min-width:0;margin-bottom:20px}
+.case{width:100%;border:1px solid #2c405a;background:#14243a;color:inherit;border-radius:12px;margin:10px 0;padding:15px;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:15px;cursor:pointer}
+.case:hover,.case.selected{border-color:#719cff;background:#192f4e}
+.case b{display:block}.case small{display:block;color:#9db3cd;margin-top:4px}
+.pill{font-size:11px;text-transform:uppercase;letter-spacing:.4px;border-radius:100px;background:#334866;padding:5px 10px;white-space:nowrap}
+.pill.resolved{color:#9fe9be;background:#194d37}.pill.waiting{color:#fed19b;background:#504129}
+.rule{border:0;border-top:1px solid #293b53;margin:18px 0}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#92accd;font-weight:750;margin-top:10px}
+.value{margin:4px 0 10px;word-break:break-word}
+input,select,textarea{background:#0a1627;color:#e9efff;border:1px solid #3a5272;border-radius:10px;padding:12px;width:100%;font:inherit}
+textarea{min-height:83px;resize:vertical}.field{margin:12px 0}
+.timeline{border-left:2px solid #36547d;padding-left:16px;margin:12px 0}
+.timeline div{margin:16px 0;position:relative}.timeline div:before{content:"";position:absolute;left:-22px;top:6px;background:#76a6ff;width:10px;height:10px;border-radius:50%}
+.timeline small{display:block;color:#89a3c7}
+.message{min-height:20px;margin:15px 0;color:#98e1b6}.message.error{color:#ffaeac}
+.tools{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;overflow-wrap:anywhere;color:#b4d0ff}
+.tools div{padding:10px;border-bottom:1px solid #26364c}
+footer{font-size:12px;color:#8c9fbb;padding:10px 0 30px}
+@media(max-width:900px){.panels{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}aside{padding:12px 18px;gap:8px;border-bottom:1px solid #263247}nav{display:flex;overflow:auto}nav .nav{white-space:nowrap}.sidefoot{display:none}main{padding:22px}}
+@media(max-width:540px){.grid{grid-template-columns:1fr 1fr}h1{font-size:27px}.card{padding:15px}.metric{font-size:28px}}
+</style></head><body>
+<div class="layout"><aside><div class="brand"><span class="logo">⌁</span> LifeAnchor</div>
+<nav><a class="nav active" href="#overview">◈ Overview</a><a class="nav" href="#cases">▤ My Cases</a><a class="nav" href="#followup">↻ Follow-ups</a><a class="nav" href="#activity">≡ MCP Activity</a></nav>
+<div class="sidefoot">wHACKiest 2026 · Track 1<br>Make MCP Matter<br>Less Magic, More Utility</div></aside>
+<main><div class="top"><div><div class="eyebrow">Personal life-support & follow-through agent</div>
+<h1>Don't just remind me.<br>Make sure it gets done.</h1>
+<p class="sub">Discover responsibilities, keep their context, follow up, and verify outcomes with evidence. Consequential actions stay under your control.</p></div>
+<span class="notice" id="mode">● Demo data · not live Gmail</span></div>
+<div class="actions"><button class="btn primary" id="discover">✦ Discover sample refund</button><button class="btn" id="reset">Reset demo</button></div>
+<p id="message" class="message" role="status"></p>
+<div class="grid"><div class="card"><div class="muted">Total cases</div><div class="metric" id="total">0</div></div>
+<div class="card"><div class="muted">Open / waiting</div><div class="metric" id="open">0</div></div>
+<div class="card"><div class="muted">Verified resolved</div><div class="metric" id="resolved">0</div></div></div>
+<div class="panels">
+<section><div class="panel" id="cases"><h2>My responsibilities</h2><p class="muted">Create a responsibility or discover one from the test Gmail mailbox.</p>
+<div id="casesList"></div><hr class="rule">
+<form id="newCase"><div class="label">Add a responsibility</div>
+<div class="field"><input id="title" placeholder="e.g. Submit internship application" minlength="3" maxlength="160" required></div>
+<div class="field"><textarea id="description" placeholder="What needs to happen? (optional)"></textarea></div>
+<button class="btn" type="submit">+ Create case</button></form></div>
+<div class="panel" id="activity"><h2>MCP tool activity</h2><p class="muted">Real JSON-RPC tool invocations in backend mode; illustrative local actions in static preview mode.</p><div id="trace" class="tools"></div></div></section>
+<section><div class="panel" id="followup"><h2>Selected case</h2><div id="detail"><p class="muted">Select a case to see the timeline and actions.</p></div></div>
+<div class="panel"><h2>How LifeAnchor works</h2><div class="timeline">
+<div><b>1 · Discover</b><small>Read authorized information</small></div>
+<div><b>2 · Understand</b><small>Create persistent case</small></div>
+<div><b>3 · Plan</b><small>Choose the next action</small></div>
+<div><b>4 · Follow up</b><small>Check for new evidence</small></div>
+<div><b>5 · Verify</b><small>Close only with sufficient proof</small></div></div></div></section></div>
+<footer>Hackathon prototype only · Merchant refund issuance is not proof of bank receipt · No real email is sent.</footer>
+</main></div>
+<script>
+const $=id=>document.getElementById(id);const KEY="lifeanchor-preview-v3";
+let backend=false,state={cases:[],actions:[],trace:[]},selected=null;
+const clean=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const time=()=>new Date().toLocaleString();
+function localLoad(){try{state=JSON.parse(localStorage.getItem(KEY))||state}catch{}}
+function persist(){if(!backend)localStorage.setItem(KEY,JSON.stringify(state))}
+function trace(server,tool){state.trace.unshift({at:time(),server,tool,status:"illustrative",fixture:true});state.trace=state.trace.slice(0,25)}
+function note(msg,err=false){$("message").textContent=msg;$("message").className="message"+(err?" error":"")}
+async function api(path,body){let r=await fetch(path,{method:body===undefined?"GET":"POST",
+headers:{"Content-Type":"application/json"},body:body===undefined?undefined:JSON.stringify(body)});
+if(!r.ok)throw Error((await r.json()).detail||"Action failed");return r.json()}
+async function refresh(){if(backend)state=await api("/api/state");else persist();render()}
+function getCase(){return state.cases.find(c=>c.id===selected)}
+function addEvent(c,label,detail){c.timeline.push({time:time(),label,detail})}
+function createCase(obj){
+const c={id:"LA-"+Math.random().toString(36).slice(2,9).toUpperCase(),category:"personal",
+status:"open",evidence:[],timeline:[],source_ref:"User entered",user_confirmed:0,...obj};
+addEvent(c,"Case created","Responsibility stored for tracking");state.cases.unshift(c);trace("LifeLedger MCP (preview)","create_life_case");return c}
+function render(){
+$("mode").textContent=backend?"● Backend MCP connected · Gmail fixture":"● Browser-only demo · simulated";
+$("total").textContent=state.cases.length;
+$("open").textContent=state.cases.filter(c=>c.status!=="resolved").length;
+$("resolved").textContent=state.cases.filter(c=>c.status==="resolved").length;
+$("casesList").innerHTML=state.cases.length?state.cases.map(c=>
+'<button class="case '+(c.id===selected?'selected':'')+'" data-case="'+clean(c.id)+'"><span><b>'+
+clean(c.title)+'</b><small>'+clean(c.category||"personal")+' · '+clean(c.source_type||"Manual")+'</small></span><span class="pill '+clean(c.status)+'">'+clean(c.status.replaceAll("_"," "))+'</span></button>').join(""):'<p class="muted">No cases yet. Start with the sample refund.</p>';
+document.querySelectorAll("[data-case]").forEach(el=>el.onclick=()=>{selected=el.dataset.case;render()});
+$("trace").innerHTML=(state.trace||[]).slice(0,12).map(t=>'<div>'+clean(t.at||"")+' · '+clean(t.server)+'<br><strong>'+clean(t.tool)+'</strong> · '+clean(t.status)+'</div>').join("")||'<p class="muted">Tool activity appears here.</p>';
+const c=getCase();
+if(!c){$("detail").innerHTML='<p class="muted">Select a case to view its lifecycle.</p>';return}
+let html='<div class="label">Responsibility</div><h2>'+clean(c.title)+'</h2><span class="pill '+clean(c.status)+'">'+clean(c.status.replaceAll("_"," "))+'</span>'+
+'<div class="label">Source</div><div class="value">'+clean(c.source_ref)+'</div>'+
+'<div class="label">Deadline</div><div class="value">'+clean(c.due_at||"Not provided")+'</div>'+
+'<div class="label">Description</div><div class="value">'+clean(c.description||"No details")+'</div>';
+if(c.category==="refund"){
+html+='<hr class="rule"><h2>Follow-up check</h2><div class="field"><select id="scenario">'+
+'<option value="none">No confirmation found</option><option value="wrong_order">Wrong order number</option>'+
+'<option value="wrong_amount">Wrong refund amount</option><option value="matching_issued">Matching refund issued email</option></select></div>'+
+'<button class="btn primary" id="check">Run follow-up</button> <button class="btn" id="draft">Prepare support draft</button>';
+if(c.status==="awaiting_user_confirmation")html+='<p class="muted">The merchant reports issuing the refund. Only confirm after the money reaches your account.</p><button class="btn primary" id="verify">I confirm bank receipt</button>';
+let action=state.actions.find(x=>x.case_id===c.id&&x.status==="pending");
+if(action)html+='<hr class="rule"><div class="label">Draft (not sent)</div><p>'+clean(action.body)+'</p>'+
+'<button class="btn primary" id="approve">Approve draft</button> <button class="btn" id="reject">Reject</button>';
+}
+html+='<hr class="rule"><h2>Case timeline</h2><div class="timeline">'+(c.timeline||[]).slice().reverse().map(x=>'<div><b>'+clean(x.label)+'</b><small>'+clean(x.detail)+' · '+clean(x.time)+'</small></div>').join("")+'</div>';
+if(c.evidence?.length)html+='<div class="label">Evidence</div>'+c.evidence.map(e=>'<p>'+clean(e.source_ref)+' · '+clean(e.type)+'</p>').join("");
+$("detail").innerHTML=html;
+if($("check"))$("check").onclick=()=>perform("check");
+if($("draft"))$("draft").onclick=()=>perform("draft");
+if($("verify"))$("verify").onclick=()=>perform("verify");
+if($("approve"))$("approve").onclick=()=>perform("approve");
+if($("reject"))$("reject").onclick=()=>perform("reject");
+}
+async function perform(act){
+const c=getCase();if(!c)return;
+try{
+if(backend){
+if(act==="check"){const r=await api("/api/demo/check",{case_id:c.id,scenario:$("scenario").value});note(r.message)}
+if(act==="draft"){await api("/api/demo/draft",{case_id:c.id});note("Draft ready for review; not sent")}
+if(act==="verify"){await api("/api/demo/verify",{case_id:c.id});note("Verification recorded")}
+if(act==="approve"||act==="reject"){let a=state.actions.find(x=>x.case_id===c.id&&x.status==="pending");
+await api("/api/demo/review",{case_id:c.id,action_id:a.id,decision:act==="approve"?"approve":"reject"});
+note("Decision recorded; no real email was sent")}
+}else{
+if(act==="check"){
+const s=$("scenario").value;trace("Gmail MCP (preview)","check_refund_update");trace("LifeLedger MCP (preview)","record_followup_check");
+let msg=s==="none"?"No matching email found; not proof that the refund failed":
+s==="wrong_order"||s==="wrong_amount"?"Mismatched confirmation; case stays open":
+"Merchant issued a matching refund; user must confirm bank receipt";
+c.status=s==="matching_issued"?"awaiting_user_confirmation":"waiting";
+if(s==="matching_issued")c.evidence.push({source_ref:"mail-1042-issued",type:"merchant_refund_issued"});
+addEvent(c,"Follow-up checked",msg);note(msg)
+}else if(act==="draft"){
+const a={id:"ACT-"+Math.random().toString(36).slice(2,8),case_id:c.id,status:"pending",
+body:"Hello, could you confirm the refund status for order #"+c.order_id+"? Thank you."};
+state.actions.unshift(a);trace("LifeLedger MCP (preview)","prepare_followup_draft");addEvent(c,"Draft prepared","Awaiting approval");note("Support draft prepared")
+}else if(act==="verify"){
+if(!c.evidence.length)throw Error("No matching evidence");
+c.user_confirmed=1;c.status="resolved";trace("LifeLedger MCP (preview)","verify_completion");
+addEvent(c,"Verified","Matching merchant message and user-confirmed receipt");note("Case verified and resolved")
+}else{
+let a=state.actions.find(x=>x.case_id===c.id&&x.status==="pending");
+a.status=act==="approve"?"approved_not_sent":"rejected";
+trace("LifeLedger MCP (preview)","review_draft");addEvent(c,"Draft reviewed",act==="approve"?"Approved (not sent)":"Rejected");note("Decision recorded; no email sent")
+}}
+await refresh()
+}catch(e){note(e.message,true)}}
+$("discover").onclick=async()=>{
+try{
+if(backend){const r=await api("/api/demo/discover",{});selected=r.case_id;note("Demo refund discovered through Gmail fixture MCP")}
+else{
+let old=state.cases.find(x=>x.source_ref==="mail-return-1042");
+let c=old||createCase({title:"Track ₹2,499 headphone refund",category:"refund",
+description:"Returned headphones to Example Store; tracking refund issuance and bank receipt",
+source_ref:"mail-return-1042",source_type:"Gmail fixture",order_id:"1042",amount:2499,merchant:"Example Store",due_at:"2026-11-23"});
+trace("Gmail MCP (preview)","search_return_email");selected=c.id;note("Sample refund case created; Gmail is simulated")
+}
+await refresh()
+}catch(e){note(e.message,true)}};
+$("reset").onclick=async()=>{if(!confirm("Reset demo cases and activity?"))return;
+try{if(backend)await api("/api/demo/reset",{});else{state={cases:[],actions:[],trace:[]};selected=null}
+await refresh();note("Demo reset")}catch(e){note(e.message,true)}};
+$("newCase").onsubmit=async e=>{e.preventDefault();try{
+const obj={title:$("title").value,description:$("description").value,category:"personal"};
+if(backend){const r=await api("/api/cases",obj);selected=r.case_id}
+else selected=createCase(obj).id;
+$("newCase").reset();await refresh();note("Case created")
+}catch(e){note(e.message,true)}};
+document.querySelectorAll(".nav").forEach(a=>a.onclick=()=>{document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));a.classList.add("active")});
+(async()=>{try{const r=await api("/api/health");backend=Boolean(r.ok)}catch{backend=false;localLoad()}
+try{await refresh()}catch(e){backend=false;localLoad();render()}})();
+</script></body></html>

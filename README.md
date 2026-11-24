@@ -1,4 +1,15 @@
-# LifeAnchor — MCP-powered Follow-through Agent
+# 🚀 LifeAnchor — Open the Live Hackathon Demo
+
+**[▶ LAUNCH LIVE DEMO — Click here to open LifeAnchor on Render](https://lifeanchor-hackathon.onrender.com)**
+
+Live demo: https://lifeanchor-hackathon.onrender.com
+
+[GitHub Release](https://github.com/VaibhavJX/LifeAnchor/releases/tag/demo) · [Demo Script](DEMO_SCRIPT.md)
+
+> The hosted prototype uses a simulated Gmail mailbox, not live Gmail access. The free hosting service may take time to start after inactivity.
+
+---
+
 
 > **Don't just remind me. Help me make sure it gets done.**
 

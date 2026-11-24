@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local data
+/data/*
+!/data/.gitkeep
+*.sqlite3
+*.db
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editors
+.DS_Store
+.vscode/
+.idea/
